@@ -31,6 +31,20 @@ exports.findUser = function(username, cb){
   dbConnection.query(queryString, cb);
 };
 
+exports.userName = function(messageArray, cb) {
+  var allUsers = {};
+  for (var i = 0; i < messageArray.length; i ++) {
+    var queryString = 'select * from users;';
+    dbConnection.query(queryString, function(err, rows) {
+      if (err) {
+        throw err;
+      } else {
+        cb(rows);
+      }
+    })
+  }
+};
+
 exports.saveUser = function(username, cb){
   var queryString = 'insert into users (userid, username) values ('+userid+", '"+username+"');";
   // console.log(queryString);
@@ -51,7 +65,6 @@ exports.saveMessage = function(message, userid, cb){
   var queryString = 'insert into messages (messageid, text, userid) values (' + messageid + ',"' + message + '",' + userid + ');';
   dbConnection.query(queryString, function(err, rows){
     if (err) {
-    console.log("ERRORrrrr");
       throw err;
     }
     else {

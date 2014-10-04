@@ -43,11 +43,25 @@ exports.postMessage = function(req, res) {
 };
 
 exports.getMessages = function(req, res) {
-  console.log("got to getmessages")
   findMessages(function(err, messages) {
-      var objToSend = {results: messages};
-    console.log(objToSend.results);
-      serverHelpers.sendResponse(res, objToSend);
+      //db.userName to get username
+      db.userName(messages, function(rows){
+      //loop through messages
+        for (var i = 0; i < messages.length; i++) {
+          //get user id
+          var id = messages[i].userid;
+          //get username for that id from rows
+          for ( var j = 0; j < rows.length; j++) {
+            if (rows[j].userid === id) {
+              //create new property on messages where messages.username = above
+              messages[i].username = rows[j].username;
+              break;
+            }
+          }
+        }
+        var objToSend = {results: messages};
+        serverHelpers.sendResponse(res, objToSend);
+      })
   });
 };
 
