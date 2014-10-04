@@ -21,6 +21,9 @@ var userid = 0;
 
 
 exports.findAllMessages = function(cb){
+  console.log("got to findallmessages")
+  var queryString = 'select * from messages;';
+  dbConnection.query(queryString, cb);
 };
 
 exports.findUser = function(username, cb){
@@ -30,7 +33,7 @@ exports.findUser = function(username, cb){
 
 exports.saveUser = function(username, cb){
   var queryString = 'insert into users (userid, username) values ('+userid+", '"+username+"');";
-  console.log(queryString);
+  // console.log(queryString);
   dbConnection.query(queryString, function(err, rows){
     if (err) {
       throw err;

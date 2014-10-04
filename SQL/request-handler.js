@@ -26,8 +26,8 @@ exports.postMessage = function(req, res) {
   parseData(req, function(_, msg) {
       // db.saveMessage()
       message = msg;
-      console.log('in parseData')
-      console.log(message)
+      // console.log('in parseData')
+      // console.log(message)
       findUser(msg.username, function (err, results) {
         // no results/0 results
         if (!results || !results.length) {
@@ -43,8 +43,11 @@ exports.postMessage = function(req, res) {
 };
 
 exports.getMessages = function(req, res) {
+  console.log("got to getmessages")
   findMessages(function(err, messages) {
-      serverHelpers.sendResponse(res, messages);
+      var objToSend = {results: messages};
+    console.log(objToSend.results);
+      serverHelpers.sendResponse(res, objToSend);
   });
 };
 

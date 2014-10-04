@@ -37,7 +37,6 @@ var app = {
       contentType: "application/jsonp",
       url: "http://127.0.0.1:3000/classes/messages",
       success: function(data){
-        console.log(data);
         app.clearMessages();
         app.displayMessages(data);
         app.displayRooms(data);
@@ -56,19 +55,21 @@ var app = {
   },
 
   addMessage: function(message) {
+    console.log("added here")
+    console.log(message)
     // adds a message to the existing message list and sends it to the server
     message.text.replace(/<script>|<\/script>/g, '');
-    if(app.currentRoom === message.roomname) {
-      if(app.username === message.username){
+    // if(app.currentRoom === message.roomname) {
+      // if(app.username === message.username){
         $("#chats").append("<li class='message user'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
-      } else{
-        if (app.friendsList.indexOf(message.username) > -1) {
-          $("#chats").append("<li class='message friendly'><span class='username'>" + message.username + "</span>: <strong>" + message.text+"</strong></li>");
-        } else {
-          $("#chats").append("<li class='message'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
-        }
-      }
-    }
+      // } else{
+      //   if (app.friendsList.indexOf(message.username) > -1) {
+      //     $("#chats").append("<li class='message friendly'><span class='username'>" + message.username + "</span>: <strong>" + message.text+"</strong></li>");
+      //   } else {
+      //     $("#chats").append("<li class='message'><span class='username'>" + message.username + "</span>: " + message.text+"</li>");
+      //   }
+      // // }
+    // }
   },
 
   displayMessages: function(data) {
@@ -137,7 +138,7 @@ var app = {
 };
 
 app.fetch();
-//setInterval(app.fetch, 100);
+setInterval(app.fetch, 100);
 
 $(document).ready( function() {
   $('input:submit').on('click', function() {
