@@ -16,7 +16,8 @@ dbConnection.connect();
  * dbConnection.query() method.
  * See https://github.com/felixge/node-mysql for more details about
  * using this module.*/
-
+var messageid = 0;
+var userid = 0;
 
 
 exports.findAllMessages = function(cb){
@@ -28,10 +29,31 @@ exports.findUser = function(username, cb){
 };
 
 exports.saveUser = function(username, cb){
+  var queryString = 'insert into users (userid, username) values ('+userid+", '"+username+"');";
+  console.log(queryString);
+  dbConnection.query(queryString, function(err, rows){
+    if (err) {
+      throw err;
+    }
+    else {
+      userid += 1;
+      cb((userid-1), username);
+    }
+  });
 };
 
-exports.saveMessage = function(message, userid, roomname, cb){
-  dbConnection.query('insert into messages (messageid, text, userid) values ("0123", "text message", "111")', function(err, rows){
-    console.log(rows);
+exports.saveMessage = function(message, userid, cb){
+  console.log(message);
+  console.log('47');
+  var queryString = 'insert into messages (messageid, text, userid) values (' + messageid + ',"' + message + '",' + userid + ');';
+  dbConnection.query(queryString, function(err, rows){
+    if (err) {
+    console.log("ERRORrrrr");
+      throw err;
+    }
+    else {
+      messageid += 1;
+      cb();
+    }
   })
 };
