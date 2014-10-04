@@ -138,7 +138,7 @@ var app = {
 };
 
 app.fetch();
-// setInterval(app.fetch, 100);
+setInterval(app.fetch, 100);
 
 $(document).ready( function() {
   $('input:submit').on('click', function() {

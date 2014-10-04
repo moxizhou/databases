@@ -21,7 +21,7 @@ var userid = 0;
 
 
 exports.findAllMessages = function(cb){
-  console.log("got to findallmessages")
+  // console.log("got to findallmessages")
   var queryString = 'select * from messages;';
   dbConnection.query(queryString, cb);
 };
@@ -60,8 +60,8 @@ exports.saveUser = function(username, cb){
 };
 
 exports.saveMessage = function(message, userid, cb){
-  console.log(message);
-  console.log('47');
+  // console.log(message);
+  // console.log('47?');
   var queryString = 'insert into messages (messageid, text, userid) values (' + messageid + ',"' + message + '",' + userid + ');';
   dbConnection.query(queryString, function(err, rows){
     if (err) {
