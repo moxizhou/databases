@@ -3,13 +3,15 @@ CREATE DATABASE chat;
 USE chat;
 
 CREATE TABLE messages (
-  /* Describe your table here.*/
+  messageid varchar(10),
+  text varchar(255),
+  userid varchar(10)
 );
 
-/* Create other tables and define schemas for them here! */
-
-
-
+CREATE TABLE users (
+  userid varchar(10),
+  username varchar(30)
+);
 
 /*  Execute this file from the command line by typing:
  *    mysql < schema.sql
